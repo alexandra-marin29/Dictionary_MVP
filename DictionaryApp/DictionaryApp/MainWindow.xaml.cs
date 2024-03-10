@@ -15,14 +15,44 @@ using System.Windows.Shapes;
 
 namespace DictionaryApp
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
         }
+
+        private void AdminModeButton_Click(object sender, RoutedEventArgs e)
+        {
+            HideInitialContent();
+            ShowContent(new AdminControl());
+        }
+
+        private void SearchModeButton_Click(object sender, RoutedEventArgs e)
+        {
+            HideInitialContent();
+            ShowContent(new SearchControl());
+        }
+
+        private void EntertainmentModeButton_Click(object sender, RoutedEventArgs e)
+        {
+            HideInitialContent();
+            ShowContent(new EntertainmentControl());
+        }
+
+        private void HideInitialContent()
+        {
+            // Ascunde logo și titlu, sau alte elemente inițiale
+            logoDict.Visibility = Visibility.Collapsed;
+            titleLabel.Visibility = Visibility.Collapsed;
+        }
+
+        private void ShowContent(UserControl control)
+        {
+            // Asumăm că există un ContentControl sau un alt container în MainWindow pentru a găzdui UserControl-urile
+            contentHost.Content = control;
+        }
+       
     }
 }

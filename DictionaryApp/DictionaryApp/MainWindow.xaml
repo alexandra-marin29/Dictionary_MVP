@@ -6,7 +6,32 @@
         xmlns:local="clr-namespace:DictionaryApp"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Pentru butoane -->
+            <RowDefinition Height="Auto"/>
+            <!-- Pentru imagine -->
+            <RowDefinition Height="Auto"/>
+            <!-- Pentru titlu -->
+            <RowDefinition Height="*"/>
+            <!-- Pentru conținutul dinamic (UserControl-uri) -->
+        </Grid.RowDefinitions>
+
+        <!-- Butonale -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10">
+            <Button x:Name="AdminModeButton" Content="Modul Administrativ" Click="AdminModeButton_Click" Margin="5" Width="150" Height="40" Background="LightBlue"/>
+            <Button x:Name="SearchModeButton" Content="Modul Cautare" Click="SearchModeButton_Click" Margin="5" Width="150" Height="40" Background="LightBlue"/>
+            <Button x:Name="EntertainmentModeButton" Content="Modul Divertisment" Click="EntertainmentModeButton_Click" Margin="5" Width="150" Height="40" Background="LightBlue"/>
+        </StackPanel>
+
+        <!-- Imaginea -->
+        <Image Grid.Row="1" x:Name="logoDict" HorizontalAlignment="Center" VerticalAlignment="Top" Source="D:\FACULTATE_AN_2\MVP\Dictionary_MVP\DictionaryApp\DictionaryApp\Resources\Dictionary_logo.png" Width="128" Height="127" Margin="0,20,0,0"/>
+
+        <!-- Titlul -->
+        <TextBlock Grid.Row="2" x:Name="titleLabel" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0" FontSize="20" FontWeight="Bold" Text="Dicționar explicativ al limbii române"/>
+
+        <!-- ContentControl pentru conținutul dinamic -->
+        <ContentControl x:Name="contentHost" Grid.Row="3" />
     </Grid>
 </Window>
