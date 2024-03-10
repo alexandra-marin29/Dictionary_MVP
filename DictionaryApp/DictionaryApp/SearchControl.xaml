@@ -7,6 +7,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="D:\FACULTATE_AN_2\MVP\Dictionary_MVP\DictionaryApp\DictionaryApp\Resources\background1.jpg" Stretch="UniformToFill"/>
+        </Grid.Background>
+        <Image Grid.Row="1" x:Name="logoDict" HorizontalAlignment="Center" VerticalAlignment="Top" Source="D:\FACULTATE_AN_2\MVP\Dictionary_MVP\DictionaryApp\DictionaryApp\Resources\Dictionary_logo.png" Width="80" Height="80" Margin="0,10,0,0"/>
+
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="Auto">
             <ComboBox x:Name="categoryComboBox" Width="200" Height="30" Margin="0,0,0,10"/>
             <TextBox x:Name="searchTextBox" Width="200" Height="30" Margin="0,0,0,10"/>

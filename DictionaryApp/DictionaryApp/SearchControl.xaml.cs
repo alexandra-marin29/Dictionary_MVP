@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -74,12 +75,20 @@ namespace DictionaryApp
             {
                 resultsListBox.ItemsSource = filteredList;
                 suggestionsPopup.IsOpen = true;
+
+                // Ajustează înălțimea ListBox-ului în funcție de numărul de sugestii
+                // Presupunând că înălțimea unei linii este de 30px și maximul dorit pentru ListBox este 150px
+                int itemHeight = 30;
+                int maxItemsToShow = 5;
+                int listBoxHeight = Math.Min(filteredList.Count, maxItemsToShow) * itemHeight;
+                resultsListBox.Height = listBoxHeight;
             }
             else
             {
                 suggestionsPopup.IsOpen = false;
             }
         }
+
         private void ResultsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (resultsListBox.SelectedItem is WordEntry selectedWord)

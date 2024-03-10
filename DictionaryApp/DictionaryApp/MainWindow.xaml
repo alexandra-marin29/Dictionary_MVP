@@ -6,23 +6,21 @@
         xmlns:local="clr-namespace:DictionaryApp"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid Background="White">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="D:\FACULTATE_AN_2\MVP\Dictionary_MVP\DictionaryApp\DictionaryApp\Resources\background1.jpg" Stretch="UniformToFill"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- Pentru butoane -->
             <RowDefinition Height="Auto"/>
-            <!-- Pentru imagine -->
             <RowDefinition Height="Auto"/>
-            <!-- Pentru titlu -->
             <RowDefinition Height="*"/>
-            <!-- Pentru conținutul dinamic (UserControl-uri) -->
         </Grid.RowDefinitions>
-
         <!-- Butonale -->
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10">
-            <Button x:Name="AdminModeButton" Content="Modul Administrativ" Click="AdminModeButton_Click" Margin="5" Width="150" Height="40" Background="LightBlue"/>
-            <Button x:Name="SearchModeButton" Content="Modul Cautare" Click="SearchModeButton_Click" Margin="5" Width="150" Height="40" Background="LightBlue"/>
-            <Button x:Name="EntertainmentModeButton" Content="Modul Divertisment" Click="EntertainmentModeButton_Click" Margin="5" Width="150" Height="40" Background="LightBlue"/>
+            <Button x:Name="AdminModeButton" Content="Modul Administrativ" Click="AdminModeButton_Click" Margin="5" Width="150" Height="40" Background="DarkGray"/>
+            <Button x:Name="SearchModeButton" Content="Modul Cautare" Click="SearchModeButton_Click" Margin="5" Width="150" Height="40" Background="DarkGray"/>
+            <Button x:Name="EntertainmentModeButton" Content="Modul Divertisment" Click="EntertainmentModeButton_Click" Margin="5" Width="150" Height="40" Background="DarkGray"/>
         </StackPanel>
 
         <!-- Imaginea -->
