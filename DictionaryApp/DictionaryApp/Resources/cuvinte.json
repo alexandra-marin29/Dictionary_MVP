@@ -1,117 +1,117 @@
 [
-  {
-    "cuvant": "tricou",
-    "categorie": "haine",
-    "definitie": "Îmbrăcăminte lejeră din tricot, fără mâneci sau cu mâneci scurte, care acoperă trunchiul corpului."
-  },
-  {
-    "cuvant": "pat",
-    "categorie": "mobila",
-    "definitie": "Mobilă formată dintr-o ramă cu saltea, pe care se doarme."
-  },
-  {
-    "cuvant": "frigider",
-    "categorie": "electrocasnice",
-    "definitie": "Aparat electrocasnic pentru menținerea la rece a alimentelor."
-  },
-  {
-    "cuvant": "telefon",
-    "categorie": "dispozitive electronice",
-    "definitie": "Aparat de telecomunicații care permite transmiterea și recepționarea vocii la distanță."
-  },
-  {
-    "cuvant": "bicicletă",
-    "categorie": "vehicule",
-    "definitie": "Vehicul cu două roți, pus în mișcare de forța musculară a celui care îl conduce, prin acționarea pedalelor."
-  },
-  {
-    "cuvant": "pian",
-    "categorie": "instrumente muzicale",
-    "definitie": "Instrument muzical cu claviatură, format dintr-o cutie de rezonanță cu corzi metalice lovite de ciocănele acționate de claviatură."
-  },
-  {
-    "cuvant": "minge",
-    "categorie": "articole sportive",
-    "definitie": "Corp rotund, elastic, care se poate arunca, prinde, lovi etc."
-  },
-  {
-    "cuvant": "câine",
-    "categorie": "animale",
-    "definitie": "Mamifer domestic din familia canidelor, cu blană scurtă și urechi ascuțite, folosit ca animal de companie, de pază sau pentru vânătoare."
-  },
-  {
-    "cuvant": "trandafir",
-    "categorie": "plante",
-    "definitie": "Floare cu petale roșii, roz, albe sau galbene, cu miros plăcut, originară din Asia."
-  },
-  {
-    "cuvant": "blugi",
-    "categorie": "haine",
-    "definitie": "Pantaloni din denim, de obicei albaștri."
-  },
-  {
-    "cuvant": "canapea",
-    "categorie": "mobila",
-    "definitie": "Mobilă cu spătar și șezut, pentru mai multe persoane."
-  },
-  {
-    "cuvant": "mașină de spălat",
-    "categorie": "electrocasnice",
-    "definitie": "Aparat electrocasnic pentru spălarea rufelor."
-  },
-  {
-    "cuvant": "laptop",
-    "categorie": "dispozitive electronice",
-    "definitie": "Calculator portabil cu ecran integrat."
-  },
-  {
-    "cuvant": "motocicletă",
-    "categorie": "vehicule",
-    "definitie": "Vehicul cu două roți, pus în mișcare de un motor."
-  },
-  {
-    "cuvant": "chitară",
-    "categorie": "instrumente muzicale",
-    "definitie": "Instrument muzical cu corzi, format dintr-o cutie de rezonanță cu gât lung și tastieră."
-  },
-  {
-    "cuvant": "rachetă de tenis",
-    "categorie": "articole sportive",
-    "definitie": "Unelta cu care se lovește mingea la tenis."
-  },
-  {
-    "cuvant": "pisică",
-    "categorie": "animale",
-    "definitie": "Mamifer domestic din familia feline
-   },
-  {
-    "cuvant": "palton",
-    "categorie": "haine",
-    "definitie": "Îmbrăcăminte groasă de iarnă, lungă până la genunchi sau până la glezne."
-  },
-  {
-    "cuvant": "masă",
-    "categorie": "mobila",
-    "definitie": "Mobilă cu blat orizontal, susținută de picioare, folosită pentru a mânca, a lucra etc."
-  },
-  {
-    "cupvant": "prăjitor de pâine",
-    "categorie": "electrocasnice",
-    "definitie": "Aparat electrocasnic pentru rumenirea feliilor de pâine."
-  },
- {
-    "cuvant": "autobuz",
-    "categorie": "vehicule",
-    "definitie": "Vehicul rutier public pentru transportul călătorilor."
-  },
-  {
-    "cuvant": "vioară",
-    "categorie": "instrumente muzicale",
-    "definitie": "Instrument muzical cu corzi, cu arcuș, cu un sunet caracteristic."
-  },
-  {
-    "cuvant": "flaut",
-    "categorie": "instrumente muzicale",
-    "definitie": "Instrument muzical de suflat, format dintr-un tub cu găuri."
-  }
+    {
+        "cuvant": "tricou",
+        "categorie": "haine",
+        "definitie": "Îmbrăcăminte lejeră din tricot, fără mâneci sau cu mâneci scurte, care acoperă trunchiul corpului."
+    },
+    {
+        "cuvant": "pat",
+        "categorie": "mobila",
+        "definitie": "Mobilă formată dintr-o ramă cu saltea, pe care se doarme."
+    },
+    {
+        "cuvant": "frigider",
+        "categorie": "electrocasnice",
+        "definitie": "Aparat electrocasnic pentru menținerea la rece a alimentelor."
+    },
+    {
+        "cuvant": "telefon",
+        "categorie": "dispozitive electronice",
+        "definitie": "Aparat de telecomunicații care permite transmiterea și recepționarea vocii la distanță."
+    },
+    {
+        "cuvant": "bicicletă",
+        "categorie": "vehicule",
+        "definitie": "Vehicul cu două roți, pus în mișcare de forța musculară a celui care îl conduce, prin acționarea pedalelor."
+    },
+    {
+        "cuvant": "pian",
+        "categorie": "instrumente muzicale",
+        "definitie": "Instrument muzical cu claviatură, format dintr-o cutie de rezonanță cu corzi metalice lovite de ciocănele acționate de claviatură."
+    },
+    {
+        "cuvant": "minge",
+        "categorie": "articole sportive",
+        "definitie": "Corp rotund, elastic, care se poate arunca, prinde, lovi etc."
+    },
+    {
+        "cuvant": "câine",
+        "categorie": "animale",
+        "definitie": "Mamifer domestic din familia canidelor, cu blană scurtă și urechi ascuțite, folosit ca animal de companie, de pază sau pentru vânătoare."
+    },
+    {
+        "cuvant": "trandafir",
+        "categorie": "plante",
+        "definitie": "Floare cu petale roșii, roz, albe sau galbene, cu miros plăcut, originară din Asia."
+    },
+    {
+        "cuvant": "blugi",
+        "categorie": "haine",
+        "definitie": "Pantaloni din denim, de obicei albaștri."
+    },
+    {
+        "cuvant": "canapea",
+        "categorie": "mobila",
+        "definitie": "Mobilă cu spătar și șezut, pentru mai multe persoane."
+    },
+    {
+        "cuvant": "mașină de spălat",
+        "categorie": "electrocasnice",
+        "definitie": "Aparat electrocasnic pentru spălarea rufelor."
+    },
+    {
+        "cuvant": "laptop",
+        "categorie": "dispozitive electronice",
+        "definitie": "Calculator portabil cu ecran integrat."
+    },
+    {
+        "cuvant": "motocicletă",
+        "categorie": "vehicule",
+        "definitie": "Vehicul cu două roți, pus în mișcare de un motor."
+    },
+    {
+        "cuvant": "chitară",
+        "categorie": "instrumente muzicale",
+        "definitie": "Instrument muzical cu corzi, format dintr-o cutie de rezonanță cu gât lung și tastieră."
+    },
+    {
+        "cuvant": "rachetă de tenis",
+        "categorie": "articole sportive",
+        "definitie": "Unelta cu care se lovește mingea la tenis."
+    },
+    {
+        "cuvant": "pisică",
+        "categorie": "animale",
+        "definitie": "Mamifer domestic carnivor din familia felidelor, cu corpul suplu, acoperit cu blană deasă și moale de diferite culori, cu capul rotund, cu botul foarte scurt, cu maxilarele puternice și cu ghearele retractile și ascuțite "
+    },
+    {
+        "cuvant": "palton",
+        "categorie": "haine",
+        "definitie": "Îmbrăcăminte groasă de iarnă, lungă până la genunchi sau până la glezne."
+    },
+    {
+        "cuvant": "masă",
+        "categorie": "mobila",
+        "definitie": "Mobilă cu blat orizontal, susținută de picioare, folosită pentru a mânca, a lucra etc."
+    },
+    {
+        "cuvant": "prăjitor de pâine",
+        "categorie": "electrocasnice",
+        "definitie": "Aparat electrocasnic pentru rumenirea feliilor de pâine."
+    },
+    {
+        "cuvant": "autobuz",
+        "categorie": "vehicule",
+        "definitie": "Vehicul rutier public pentru transportul călătorilor."
+    },
+    {
+        "cuvant": "vioară",
+        "categorie": "instrumente muzicale",
+        "definitie": "Instrument muzical cu corzi, cu arcuș, cu un sunet caracteristic."
+    },
+    {
+        "cuvant": "flaut",
+        "categorie": "instrumente muzicale",
+        "definitie": "Instrument muzical de suflat, format dintr-un tub cu găuri."
+    }
 ]

@@ -43,14 +43,12 @@ namespace DictionaryApp
 
         private void HideInitialContent()
         {
-            // Ascunde logo și titlu, sau alte elemente inițiale
             logoDict.Visibility = Visibility.Collapsed;
             titleLabel.Visibility = Visibility.Collapsed;
         }
 
         private void ShowContent(UserControl control)
         {
-            // Asumăm că există un ContentControl sau un alt container în MainWindow pentru a găzdui UserControl-urile
             contentHost.Content = control;
         }
        
