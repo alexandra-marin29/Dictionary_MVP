@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace DictionaryApp
 {
@@ -29,7 +30,8 @@ namespace DictionaryApp
             InitializeComponent();
             LoadJsonData();
             searchTextBox.TextChanged += SearchTextBox_TextChanged;
-            categoryComboBox.SelectionChanged += CategoryComboBox_SelectionChanged; // Adaugă acest event handler
+            categoryComboBox.SelectionChanged += CategoryComboBox_SelectionChanged;
+
         }
 
         private void LoadJsonData()
@@ -89,19 +91,32 @@ namespace DictionaryApp
             }
         }
 
+
         private void ResultsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (resultsListBox.SelectedItem is WordEntry selectedWord)
             {
                 // Actualizează controalele UI cu informațiile cuvântului selectat
-                selectedWordTextBlock.Text = $"Cuvânt: {selectedWord.cuvant}";
-                selectedWordCategoryTextBlock.Text = $"Categorie: {selectedWord.categorie}";
-                selectedWordDefinitionTextBlock.Text = $"Definiție: {selectedWord.definitie}";
+                selectedWordTextBox.Text = $"Cuvânt: {selectedWord.cuvant}";
+                selectedWordCategoryTextBox.Text = $"Categorie: {selectedWord.categorie}";
+                selectedWordDefinitionTextBox.Text = $"Definiție: {selectedWord.definitie}";
+
+                // Încercăm să actualizăm imaginea cuvântului selectat
+                var imagePath = $"D:\\FACULTATE_AN_2\\MVP\\Dictionary_MVP\\DictionaryApp\\DictionaryApp\\Resources\\Images\\{selectedWord.cuvant}.png"; // Presupunând că ai imagini numite după cuvânt
+                if (File.Exists(imagePath))
+                {
+                    wordImage.Source = new BitmapImage(new Uri(imagePath));
+                }
+                else
+                {
+                    wordImage.Source = new BitmapImage(new Uri("D:\\FACULTATE_AN_2\\MVP\\Dictionary_MVP\\DictionaryApp\\DictionaryApp\\Resources\\Images\\no_image.png")); // Imaginea de rezervă
+                }
 
                 // Închide Popup-ul de sugestii
                 suggestionsPopup.IsOpen = false;
             }
         }
+
 
 
     }

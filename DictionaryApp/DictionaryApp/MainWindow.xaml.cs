@@ -25,8 +25,18 @@ namespace DictionaryApp
 
         private void AdminModeButton_Click(object sender, RoutedEventArgs e)
         {
-            HideInitialContent();
-            ShowContent(new AdminControl());
+            var loginWindow = new LoginControl();
+            loginWindow.OnAuthenticationSuccess += LoginWindow_OnAuthenticationSuccess; // Abonează-te la event
+            loginWindow.ShowDialog(); // Utilizează ShowDialog pentru a bloca restul UI-ului până se închide fereastra de login
+        }
+        private void LoginWindow_OnAuthenticationSuccess()
+        {
+            ShowContent(new AdminControl()); // Schimbă contentHost cu AdminControl după autentificare
+        }
+        private void ShowContent(UserControl control)
+        {
+            contentHost.Content = control;
+            HideInitialContent(); // Ascunde conținutul inițial dacă este necesar
         }
 
         private void SearchModeButton_Click(object sender, RoutedEventArgs e)
@@ -47,10 +57,7 @@ namespace DictionaryApp
             titleLabel.Visibility = Visibility.Collapsed;
         }
 
-        private void ShowContent(UserControl control)
-        {
-            contentHost.Content = control;
-        }
        
+        
     }
 }

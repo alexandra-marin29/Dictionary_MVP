@@ -110,8 +110,23 @@
         "definitie": "Instrument muzical cu corzi, cu arcuș, cu un sunet caracteristic."
     },
     {
-        "cuvant": "flaut",
-        "categorie": "instrumente muzicale",
-        "definitie": "Instrument muzical de suflat, format dintr-un tub cu găuri."
+      "cuvant": "flaut",
+      "categorie": "instrumente muzicale",
+      "definitie": "Instrument muzical de suflat, format dintr-un tub cu găuri."
+    },
+    {
+      "cuvant": "castor",
+      "categorie": "animale",
+      "definitie": "Mamifer rozător semiacvatic cu labele din spate palmate și cu coada lățită, care trăiește în colonii, clădindu-și cu măiestrie cuibul pe malul apelor."
+    },
+    {
+      "cuvant": "căprioară",
+      "categorie": "animale",
+      "definitie": "Animal rumegător sălbatic din familia cerbului, mai mic decât acesta, care trăiește în pădurile de dealuri și de șes."
+    },
+    {
+      "cuvant": "ponei",
+      "categorie": "animale",
+      "definitie": "Rasă de cai cu greutate corporală mică și talie redusă, folosită pentru munci ușoare, sport sau agrement."
     }
 ]
