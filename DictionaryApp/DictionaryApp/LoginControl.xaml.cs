@@ -10,7 +10,6 @@ namespace DictionaryApp
 {
     public partial class LoginControl : Window
     {
-        // Definiți un delegat și un event pentru succesul autentificării
         public delegate void AuthenticationSuccessHandler();
         public event AuthenticationSuccessHandler OnAuthenticationSuccess;
 
@@ -25,15 +24,14 @@ namespace DictionaryApp
             string json = File.ReadAllText(filePath);
             var users = JsonConvert.DeserializeObject<List<User>>(json);
 
-            var username = usernameTextBox.Text; // Asigură-te că ai un TextBox cu x:Name="usernameTextBox" în XAML
-            var password = passwordBox.Password; // Asigură-te că ai un PasswordBox cu x:Name="passwordBox" în XAML
+            var username = usernameTextBox.Text; 
+            var password = passwordBox.Password; 
 
-            // Caută utilizatorul în lista încărcată
             var user = users?.FirstOrDefault(u => u.Username == username && u.Password == password);
 
             if (user != null)
             {
-                OnAuthenticationSuccess?.Invoke(); // Notifică despre succesul autentificării
+                OnAuthenticationSuccess?.Invoke(); 
                 this.Close();
             }
             else

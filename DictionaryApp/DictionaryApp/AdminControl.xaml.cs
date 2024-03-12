@@ -31,7 +31,6 @@ namespace DictionaryApp
 
             if (openFileDialog.ShowDialog() == true)
             {
-                // Încarcă și afișează imaginea selectată
                 BitmapImage bitmap = new BitmapImage(new Uri(openFileDialog.FileName));
                 selectedImage.Source = bitmap;
             }
@@ -43,7 +42,7 @@ namespace DictionaryApp
             {
                 string json = File.ReadAllText(filePath);
                 words = JsonConvert.DeserializeObject<List<WordEntry>>(json) ?? new List<WordEntry>();
-                LoadCategories(); // Apelăm metoda nou adăugată pentru a încărca categoriile
+                LoadCategories(); 
             }
             else
             {
@@ -53,10 +52,8 @@ namespace DictionaryApp
 
         private void LoadCategories()
         {
-            // Extrage toate categoriile unice din lista de cuvinte
             var categories = words.Select(w => w.Categorie).Distinct().ToList();
 
-            // Setează sursele pentru categoryComboBox
             categoryComboBox.ItemsSource = categories;
         }
         private void SaveWords()
@@ -82,13 +79,23 @@ namespace DictionaryApp
 
         private void AddWordButton_Click(object sender, RoutedEventArgs e)
         {
-            // Logica pentru adăugarea unui cuvânt nou
-            var word = wordTextBox.Text;
-            var definition = descriptionTextBox.Text;
-            var category = categoryComboBox.Text;
+            var word = wordTextBox.Text.Trim();
+            var definition = descriptionTextBox.Text.Trim();
+            var category = categoryComboBox.Text.Trim();
 
-            // Salvează imaginea
-            SaveImage(selectedImage.Source as BitmapImage, word);
+            if (string.IsNullOrEmpty(word) || string.IsNullOrEmpty(category))
+            {
+                MessageBox.Show("Trebuie să introduceți un cuvânt și să selectați o categorie pentru a salva.");
+                return; 
+            }
+
+            var imagePath = SaveImage(selectedImage.Source as BitmapImage, word);
+            if (imagePath == null)
+            {
+                MessageBox.Show("Nicio imagine selectată sau eroare la salvarea imaginii. Cuvântul nu a fost adăugat.");
+                return;
+            }
+
             var newWord = new WordEntry
             {
                 Cuvant = word,
@@ -97,66 +104,65 @@ namespace DictionaryApp
             };
 
             words.Add(newWord);
-            SaveWords(); // Salvează lista actualizată în fișier
+            SaveWords();
             MessageBox.Show("Cuvântul a fost adăugat. Imaginea a fost salvată.");
         }
+
         private string SaveImage(BitmapImage bitmapImage, string word)
         {
             if (bitmapImage != null && bitmapImage.UriSource != null)
             {
-                var fileName = word + ".png"; // Numele fișierului este format din cuvântul introdus
+                var fileName = word + ".png";
                 var destinationPath = Path.Combine(imagesPath, fileName);
 
-                // Copiază imaginea în folderul destinat
-                File.Copy(bitmapImage.UriSource.LocalPath, destinationPath, true);
-
-                return fileName; // Returnează noul nume de fișier
+                try
+                {
+                    File.Copy(bitmapImage.UriSource.LocalPath, destinationPath, true);
+                    return destinationPath; 
+                }
+                catch
+                {
+                    return null; 
+                }
             }
-
-            return null; // Returnează null dacă nu s-a salvat o imagine
-        }
-
-        private void UpdateWordButton_Click(object sender, RoutedEventArgs e)
-        {
-            //var wordToUpdate = wordTextBox.Text;
-            //var newDefinition = descriptionTextBox.Text;
-            //var newCategory = categoryComboBox.Text;
-
-            //// Găsește cuvântul în lista de cuvinte
-            //var wordEntry = words.FirstOrDefault(w => w.Cuvant.Equals(wordToUpdate, StringComparison.OrdinalIgnoreCase));
-            //if (wordEntry != null)
-            //{
-            //    // Actualizează detaliile cuvântului
-            //    wordEntry.Definitie = newDefinition;
-            //    wordEntry.Categorie = newCategory;
-
-            //    SaveWords(); // Salvează lista actualizată în fișier
-            //    MessageBox.Show("Cuvântul a fost actualizat.");
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Cuvântul nu a fost găsit.");
-            //}
+            return null; 
         }
 
 
         private void DeleteWordButton_Click(object sender, RoutedEventArgs e)
         {
-            //var wordToDelete = wordTextBox.Text;
+            var wordToDelete = wordTextBox.Text.Trim();
 
-            //// Găsește și șterge cuvântul din lista de cuvinte
-            //var wordEntry = words.FirstOrDefault(w => w.Cuvant.Equals(wordToDelete, StringComparison.OrdinalIgnoreCase));
-            //if (wordEntry != null)
-            //{
-            //    words.Remove(wordEntry);
-            //    SaveWords(); // Salvează lista actualizată în fișier
-            //    MessageBox.Show("Cuvântul a fost șters.");
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Cuvântul nu a fost găsit.");
-            //}
+            if (string.IsNullOrEmpty(wordToDelete))
+            {
+                MessageBox.Show("Vă rugăm să introduceți un cuvânt pentru a fi șters.");
+                return; 
+            }
+
+            var wordEntry = words.FirstOrDefault(w => w.Cuvant.Equals(wordToDelete, StringComparison.OrdinalIgnoreCase));
+            if (wordEntry != null)
+            {
+                words.Remove(wordEntry);
+                SaveWords(); 
+
+                var imagePath = Path.Combine(imagesPath, wordToDelete + ".png");
+
+                if (File.Exists(imagePath))
+                {
+                    File.Delete(imagePath);
+                    MessageBox.Show($"Cuvântul și imaginea asociată pentru '{wordToDelete}' au fost șterse.");
+                }
+                else
+                {
+                    MessageBox.Show($"Cuvântul '{wordToDelete}' a fost șters, dar nu s-a găsit nicio imagine asociată pentru a fi eliminată.");
+                }
+            }
+            else
+            {
+                MessageBox.Show($"Cuvântul '{wordToDelete}' nu a fost găsit.");
+            }
         }
+
 
         public class WordEntry
         {

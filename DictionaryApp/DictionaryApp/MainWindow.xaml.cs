@@ -26,17 +26,17 @@ namespace DictionaryApp
         private void AdminModeButton_Click(object sender, RoutedEventArgs e)
         {
             var loginWindow = new LoginControl();
-            loginWindow.OnAuthenticationSuccess += LoginWindow_OnAuthenticationSuccess; // Abonează-te la event
-            loginWindow.ShowDialog(); // Utilizează ShowDialog pentru a bloca restul UI-ului până se închide fereastra de login
+            loginWindow.OnAuthenticationSuccess += LoginWindow_OnAuthenticationSuccess; 
+            loginWindow.ShowDialog(); 
         }
         private void LoginWindow_OnAuthenticationSuccess()
         {
-            ShowContent(new AdminControl()); // Schimbă contentHost cu AdminControl după autentificare
+            ShowContent(new AdminControl()); 
         }
         private void ShowContent(UserControl control)
         {
             contentHost.Content = control;
-            HideInitialContent(); // Ascunde conținutul inițial dacă este necesar
+            HideInitialContent(); 
         }
 
         private void SearchModeButton_Click(object sender, RoutedEventArgs e)

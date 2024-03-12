@@ -6,14 +6,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Margin="10">
+    <Grid Margin="10" RenderTransformOrigin="0.479,0.698">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <TextBlock Text="Cuvânt:" VerticalAlignment="Center"/>
@@ -25,16 +25,13 @@
         <TextBlock Text="Categorie:" Grid.Row="2" VerticalAlignment="Center"/>
         <ComboBox x:Name="categoryComboBox" Grid.Row="2" Margin="100,0,0,5" IsEditable="True" SelectionChanged="categoryComboBox_SelectionChanged" />
 
-        <Button Content="Alege imagine" Grid.Row="3" Margin="0,5" Width="120" HorizontalAlignment="Left" Click="ChooseImageButton_Click"/>
+        <Button Content="Alege imagine" Grid.Row="3" Margin="0,18,0,249" Width="120" HorizontalAlignment="Left" Click="ChooseImageButton_Click" Background="DarkGray" Grid.RowSpan="3"/>
         <Image x:Name="selectedImage" Grid.Row="3" Margin="100,0,0,5" Width="100" Height="100"/>
 
-        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10">
-            <Button x:Name="addWordButton" Content="Adaugă" Margin="5" Click="AddWordButton_Click"/>
-            <Button x:Name="updateWordButton" Content="Modifică" Margin="5" Click="UpdateWordButton_Click"/>
-            <Button x:Name="deleteWordButton" Content="Șterge" Margin="5" Click="DeleteWordButton_Click"/>
+        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Left" Margin="350,0,0,202" Width="232" >
+            <Button x:Name="addWordButton" Content="Adaugă" Margin="5" Click="AddWordButton_Click" Height="45" Width="75" Background="Thistle"/>
+            <Button x:Name="deleteWordButton" Content="Șterge" Click="DeleteWordButton_Click" Height="45" Width="75" Background="Thistle"/>
         </StackPanel>
 
-        <!-- Lista de cuvinte va fi afișată aici. Poți folosi un ListView sau alt control similar pentru a arăta cuvintele existente -->
-        <ListView x:Name="wordsListView" Grid.Row="5" Margin="0,5"/>
     </Grid>
 </UserControl>

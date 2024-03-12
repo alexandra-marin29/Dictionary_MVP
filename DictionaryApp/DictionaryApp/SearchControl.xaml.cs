@@ -47,7 +47,6 @@ namespace DictionaryApp
                 _wordEntries = new List<WordEntry>();
             }
 
-            // Add the categories to the ComboBox
             categoryComboBox.ItemsSource = _wordEntries.Select(w => w.categorie).Distinct().ToList();
         }
 
@@ -78,8 +77,7 @@ namespace DictionaryApp
                 resultsListBox.ItemsSource = filteredList;
                 suggestionsPopup.IsOpen = true;
 
-                // Ajustează înălțimea ListBox-ului în funcție de numărul de sugestii
-                // Presupunând că înălțimea unei linii este de 30px și maximul dorit pentru ListBox este 150px
+               
                 int itemHeight = 30;
                 int maxItemsToShow = 5;
                 int listBoxHeight = Math.Min(filteredList.Count, maxItemsToShow) * itemHeight;
@@ -96,12 +94,10 @@ namespace DictionaryApp
         {
             if (resultsListBox.SelectedItem is WordEntry selectedWord)
             {
-                // Actualizează controalele UI cu informațiile cuvântului selectat
                 selectedWordTextBox.Text = $"Cuvânt: {selectedWord.cuvant}";
                 selectedWordCategoryTextBox.Text = $"Categorie: {selectedWord.categorie}";
                 selectedWordDefinitionTextBox.Text = $"Definiție: {selectedWord.definitie}";
 
-                // Încercăm să actualizăm imaginea cuvântului selectat
                 var imagePath = $"D:\\FACULTATE_AN_2\\MVP\\Dictionary_MVP\\DictionaryApp\\DictionaryApp\\Resources\\Images\\{selectedWord.cuvant}.png"; // Presupunând că ai imagini numite după cuvânt
                 if (File.Exists(imagePath))
                 {
@@ -112,7 +108,6 @@ namespace DictionaryApp
                     wordImage.Source = new BitmapImage(new Uri("D:\\FACULTATE_AN_2\\MVP\\Dictionary_MVP\\DictionaryApp\\DictionaryApp\\Resources\\Images\\no_image.png")); // Imaginea de rezervă
                 }
 
-                // Închide Popup-ul de sugestii
                 suggestionsPopup.IsOpen = false;
             }
         }
