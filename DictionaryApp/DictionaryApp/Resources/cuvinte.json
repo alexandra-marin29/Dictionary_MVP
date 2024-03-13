@@ -77,7 +77,7 @@
   {
     "Cuvant": "rachetă de tenis",
     "Categorie": "articole sportive",
-    "Definitie": "Unelta cu care se lovește mingea la tenis."
+    "Definitie": "Unealtă cu care se lovește mingea la tenis."
   },
   {
     "Cuvant": "pisică",
@@ -133,5 +133,35 @@
     "Cuvant": "lup",
     "Categorie": "animale",
     "Definitie": ""
+  },
+  {
+    "Cuvant": "căpșună",
+    "Categorie": "fructe",
+    "Definitie": "Un fruct roșu mic, dulce și suculent, cu o aromă caracteristică."
+  },
+  {
+    "Cuvant": "ananas",
+    "Categorie": "fructe",
+    "Definitie": "Un fruct tropical mare, cu o coajă galbenă spinoasă și o pulpă dulce și suculentă."
+  },
+  {
+    "Cuvant": "strugure",
+    "Categorie": "fructe",
+    "Definitie": "Un fruct mic, rotund, dulce sau acru, care crește în ciorchini."
+  },
+  {
+    "Cuvant": "dovleac",
+    "Categorie": "legume",
+    "Definitie": "O legumă mare, rotundă, portocalie, cu o coajă tare și o pulpă dulce."
+  },
+  {
+    "Cuvant": "porumb",
+    "Categorie": "legume",
+    "Definitie": "O cereală cu boabe galbene sau albe, care crește pe știuleți."
+  },
+  {
+    "Cuvant": "mazăre",
+    "Categorie": "legume",
+    "Definitie": "O legumă cu păstăi verzi, care conține semințe comestibile."
   }
 ]
