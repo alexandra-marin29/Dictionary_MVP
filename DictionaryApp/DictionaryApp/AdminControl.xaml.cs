@@ -76,24 +76,22 @@ namespace DictionaryApp
         }
 
 
-
         private void AddWordButton_Click(object sender, RoutedEventArgs e)
         {
             var word = wordTextBox.Text.Trim();
             var definition = descriptionTextBox.Text.Trim();
             var category = categoryComboBox.Text.Trim();
 
-            if (string.IsNullOrEmpty(word) || string.IsNullOrEmpty(category))
+            if (string.IsNullOrEmpty(word) || string.IsNullOrEmpty(definition) || string.IsNullOrEmpty(category))
             {
-                MessageBox.Show("Trebuie să introduceți un cuvânt și să selectați o categorie pentru a salva.");
+                MessageBox.Show("Trebuie să introduceți un cuvânt, o definiție și să selectați o categorie pentru a salva.");
                 return; 
             }
 
             var imagePath = SaveImage(selectedImage.Source as BitmapImage, word);
-            if (imagePath == null)
+            if (imagePath != null)
             {
-                MessageBox.Show("Nicio imagine selectată sau eroare la salvarea imaginii. Cuvântul nu a fost adăugat.");
-                return;
+                MessageBox.Show("Imaginea a fost salvată.");
             }
 
             var newWord = new WordEntry
@@ -105,7 +103,7 @@ namespace DictionaryApp
 
             words.Add(newWord);
             SaveWords();
-            MessageBox.Show("Cuvântul a fost adăugat. Imaginea a fost salvată.");
+            MessageBox.Show("Cuvântul a fost adăugat cu succes.");
         }
 
         private string SaveImage(BitmapImage bitmapImage, string word)

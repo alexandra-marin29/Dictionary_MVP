@@ -20,12 +20,11 @@
                 <ListBox x:Name="resultsListBox" Width="200" Height="150" SelectionChanged="ResultsListBox_SelectionChanged"/>
             </Popup>
 
-            <!-- Modificările pentru aliniere -->
             <TextBox x:Name="selectedWordTextBox" FontWeight="Bold" Margin="0,10" IsReadOnly="True" BorderThickness="0" Background="Transparent" Width="500" TextAlignment="Left" Padding="10,0"/>
             <TextBox x:Name="selectedWordCategoryTextBox" FontStyle="Italic" Margin="0,0,0,5" IsReadOnly="True" BorderThickness="0" Background="Transparent" Width="500" TextAlignment="Left" Padding="10,0"/>
             <TextBox x:Name="selectedWordDefinitionTextBox" TextWrapping="Wrap" Margin="0,0,0,10" MaxWidth="500" MaxHeight="200" IsReadOnly="True" BorderThickness="0" Background="Transparent" VerticalScrollBarVisibility="Auto" Width="500" TextAlignment="Left" Padding="10,0"/>
         </StackPanel>
-        <Image x:Name="wordImage" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Height="150" Margin="560,64,0,0" RenderTransformOrigin="0.466,0.503"/>
+        <Image x:Name="wordImage" HorizontalAlignment="Right" VerticalAlignment="Top" Width="160" Height="150" Margin="500,110,40,0" RenderTransformOrigin="0.466,0.503"/>
 
     </Grid>
 </UserControl>
