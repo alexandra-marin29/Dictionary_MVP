@@ -48,6 +48,7 @@ namespace DictionaryApp
             SelectGameWords();
             currentWordIndex = 0;
             correctAnswers = 0;
+            correctAnswersText.Text = "Răspunsuri corecte: 0";
             DisplayCurrentWord();
         }
         private void UserInput_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -68,6 +69,9 @@ namespace DictionaryApp
 
             wordImage.Visibility = Visibility.Collapsed;
             wordDescription.Visibility = Visibility.Collapsed;
+
+            currentQuestionText.Text = $"Cuvântul {currentWordIndex + 1} din {gameWords.Count}";
+
 
             if (!showDescription)
             {
@@ -144,7 +148,7 @@ namespace DictionaryApp
 
         private void FinishGame()
         {
-            MessageBox.Show($"Jocul s-a încheiat. Ai răspuns corect la {correctAnswers} din 5 cuvinte.");
+            MessageBox.Show("Jocul s-a încheiat!");
             ResetInputAndFeedback();
             InitializeGame();
         }

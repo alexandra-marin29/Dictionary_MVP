@@ -17,20 +17,22 @@
         </Grid.RowDefinitions>
 
         <TextBlock Text="Cuvânt:" VerticalAlignment="Center"/>
-        <TextBox x:Name="wordTextBox" Grid.Row="0" Margin="100,0,0,5"/>
+        <!-- Modificat Height la 30 -->
+        <TextBox x:Name="wordTextBox" Grid.Row="0" Margin="100,0,0,5" Height="30" TextChanged="wordTextBox_TextChanged" />
 
         <TextBlock Text="Descriere:" Grid.Row="1" VerticalAlignment="Center"/>
-        <TextBox x:Name="descriptionTextBox" Grid.Row="1" Margin="100,0,0,5"/>
+        <!-- Modificat Height la 30 -->
+        <TextBox x:Name="descriptionTextBox" Grid.Row="1" Margin="100,0,0,5" Height="30"/>
 
         <TextBlock Text="Categorie:" Grid.Row="2" VerticalAlignment="Center"/>
-        <ComboBox x:Name="categoryComboBox" Grid.Row="2" Margin="100,0,0,5" IsEditable="True" SelectionChanged="categoryComboBox_SelectionChanged" />
+        <ComboBox x:Name="categoryComboBox" Grid.Row="2" Margin="100,0,0,5" IsEditable="True" SelectionChanged="categoryComboBox_SelectionChanged" Height="30" />
 
         <Button Content="Alege imagine" Grid.Row="3" Margin="0,18,0,249" Width="120" HorizontalAlignment="Left" Click="ChooseImageButton_Click" Background="DarkGray" Grid.RowSpan="3"/>
         <Image x:Name="selectedImage" Grid.Row="3" Margin="100,0,0,5" Width="100" Height="100"/>
 
         <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Left" Margin="350,0,0,202" Width="232" >
-            <Button x:Name="addWordButton" Content="Adaugă" Margin="5" Click="AddWordButton_Click" Height="45" Width="75" Background="Thistle"/>
-            <Button x:Name="deleteWordButton" Content="Șterge" Click="DeleteWordButton_Click" Height="45" Width="75" Background="Thistle"/>
+            <Button x:Name="addWordButton" Content="Adaugă/Modifică" Margin="5" Click="AddModifyWordButton_Click" Height="45" Width="110" Background="Thistle"/>
+            <Button x:Name="deleteWordButton" Content="Șterge" Click="DeleteWordButton_Click" Height="45" Width="110" Background="Thistle"/>
         </StackPanel>
 
     </Grid>

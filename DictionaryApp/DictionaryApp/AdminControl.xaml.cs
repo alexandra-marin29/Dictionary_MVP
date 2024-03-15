@@ -7,6 +7,7 @@ using System.Windows.Media.Imaging;
 using System.Windows;
 using Microsoft.Win32;
 using System;
+using System.Text.RegularExpressions;
 
 namespace DictionaryApp
 {
@@ -20,6 +21,43 @@ namespace DictionaryApp
         {
             InitializeComponent();
             LoadWords();
+            wordTextBox.TextChanged += wordTextBox_TextChanged;
+
+        }
+        private bool IsValidWord(string word)
+        {
+            return Regex.IsMatch(word, "^[a-zA-ZăîâșțĂÎÂȘȚ-]+$");
+        }
+
+        private bool IsValidCategory(string category)
+        {
+            return Regex.IsMatch(category, "^[a-zA-ZăîâșțĂÎÂȘȚ ]+$");
+        }
+
+        private bool IsValidDefinition(string definition)
+        {
+            return Regex.IsMatch(definition, "^[a-zA-ZăîâșțĂÎÂȘȚ0-9,;.!?-]+$");
+        }
+
+        private void wordTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var textBox = sender as TextBox;
+            if (textBox != null && !string.IsNullOrWhiteSpace(textBox.Text))
+            {
+                var existingEntry = words.FirstOrDefault(w => w.Cuvant.Equals(textBox.Text, StringComparison.OrdinalIgnoreCase));
+                if (existingEntry != null)
+                {
+                    descriptionTextBox.Text = existingEntry.Definitie;
+                    categoryComboBox.SelectedItem = categoryComboBox.Items.Cast<string>().FirstOrDefault(c => c.Equals(existingEntry.Categorie, StringComparison.OrdinalIgnoreCase));
+
+                    string imagePath = Path.Combine(imagesPath, existingEntry.Cuvant + ".png");
+                    if (!File.Exists(imagePath))
+                    {
+                        imagePath = Path.Combine(imagesPath, "no_image.png");
+                    }
+                    LoadImage(imagePath);
+                }
+            }
         }
         private void ChooseImageButton_Click(object sender, RoutedEventArgs e)
         {
@@ -35,6 +73,17 @@ namespace DictionaryApp
                 selectedImage.Source = bitmap;
             }
         }
+        private void LoadImage(string imagePath)
+        {
+            BitmapImage bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.UriSource = new Uri(imagePath, UriKind.Absolute);
+            bitmap.CacheOption = BitmapCacheOption.OnLoad;
+            bitmap.EndInit();
+            bitmap.Freeze();
+            selectedImage.Source = bitmap;
+        }
+
 
         private void LoadWords()
         {
@@ -76,7 +125,7 @@ namespace DictionaryApp
         }
 
 
-        private void AddWordButton_Click(object sender, RoutedEventArgs e)
+        private void AddModifyWordButton_Click(object sender, RoutedEventArgs e)
         {
             var word = wordTextBox.Text.Trim();
             var definition = descriptionTextBox.Text.Trim();
@@ -85,26 +134,62 @@ namespace DictionaryApp
             if (string.IsNullOrEmpty(word) || string.IsNullOrEmpty(definition) || string.IsNullOrEmpty(category))
             {
                 MessageBox.Show("Trebuie să introduceți un cuvânt, o definiție și să selectați o categorie pentru a salva.");
-                return; 
+                return;
+            }
+            if (!IsValidWord(word))
+            {
+                MessageBox.Show("Cuvântul introdus este invalid.");
+                return;
             }
 
-            var imagePath = SaveImage(selectedImage.Source as BitmapImage, word);
-            if (imagePath != null)
+            if (!IsValidCategory(category))
             {
-                MessageBox.Show("Imaginea a fost salvată.");
+                MessageBox.Show("Categoria introdusă este invalidă.");
+                return;
             }
 
-            var newWord = new WordEntry
+            if (!IsValidDefinition(definition))
             {
-                Cuvant = word,
-                Definitie = definition,
-                Categorie = category,
-            };
+                MessageBox.Show("Definiția introdusă este invalidă.");
+                return;
+            }
 
-            words.Add(newWord);
-            SaveWords();
-            MessageBox.Show("Cuvântul a fost adăugat cu succes.");
+            var existingEntry = words.FirstOrDefault(w => w.Cuvant.Equals(word, StringComparison.OrdinalIgnoreCase));
+            if (existingEntry != null)
+            {
+                existingEntry.Definitie = definition;
+                existingEntry.Categorie = category;
+
+                MessageBox.Show("Informațiile cuvântului au fost actualizate.");
+
+                var imagePath = SaveImage(selectedImage.Source as BitmapImage, word);
+                if (imagePath != null)
+                {
+                    MessageBox.Show("Imaginea a fost actualizată.");
+                }
+            }
+            else
+            {
+                var imagePath = SaveImage(selectedImage.Source as BitmapImage, word);
+                if (imagePath != null)
+                {
+                    MessageBox.Show("Imaginea a fost salvată.");
+                }
+
+                var newWord = new WordEntry
+                {
+                    Cuvant = word,
+                    Definitie = definition,
+                    Categorie = category
+                };
+
+                words.Add(newWord);
+                MessageBox.Show("Cuvântul a fost adăugat cu succes.");
+            }
+
+            SaveWords(); 
         }
+
 
         private string SaveImage(BitmapImage bitmapImage, string word)
         {
@@ -129,37 +214,45 @@ namespace DictionaryApp
 
         private void DeleteWordButton_Click(object sender, RoutedEventArgs e)
         {
-            var wordToDelete = wordTextBox.Text.Trim();
-
-            if (string.IsNullOrEmpty(wordToDelete))
+            try
             {
-                MessageBox.Show("Vă rugăm să introduceți un cuvânt pentru a fi șters.");
-                return; 
-            }
+                var wordToDelete = wordTextBox.Text.Trim();
 
-            var wordEntry = words.FirstOrDefault(w => w.Cuvant.Equals(wordToDelete, StringComparison.OrdinalIgnoreCase));
-            if (wordEntry != null)
-            {
-                words.Remove(wordEntry);
-                SaveWords(); 
-
-                var imagePath = Path.Combine(imagesPath, wordToDelete + ".png");
-
-                if (File.Exists(imagePath))
+                if (string.IsNullOrEmpty(wordToDelete))
                 {
-                    File.Delete(imagePath);
-                    MessageBox.Show($"Cuvântul și imaginea asociată pentru '{wordToDelete}' au fost șterse.");
+                    MessageBox.Show("Vă rugăm să introduceți un cuvânt pentru a fi șters.");
+                    return;
+                }
+
+                var wordEntry = words.FirstOrDefault(w => w.Cuvant.Equals(wordToDelete, StringComparison.OrdinalIgnoreCase));
+                if (wordEntry != null)
+                {
+                    words.Remove(wordEntry);
+                    SaveWords();
+
+                    var imagePath = Path.Combine(imagesPath, wordToDelete + ".png");
+
+                    if (File.Exists(imagePath))
+                    {
+                        File.Delete(imagePath);
+                        MessageBox.Show($"Cuvântul și imaginea asociată pentru '{wordToDelete}' au fost șterse.");
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Cuvântul '{wordToDelete}' a fost șters, dar nu s-a găsit nicio imagine asociată pentru a fi eliminată.");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show($"Cuvântul '{wordToDelete}' a fost șters, dar nu s-a găsit nicio imagine asociată pentru a fi eliminată.");
+                    MessageBox.Show($"Cuvântul '{wordToDelete}' nu a fost găsit.");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show($"Cuvântul '{wordToDelete}' nu a fost găsit.");
+                MessageBox.Show($"A apărut o eroare: {ex.Message}");
             }
         }
+
 
 
         public class WordEntry
@@ -169,6 +262,6 @@ namespace DictionaryApp
             public string Definitie { get; set; }
         }
 
-       
+        
     }
 }
