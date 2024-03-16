@@ -22,7 +22,6 @@ namespace DictionaryApp
             var imagePath = Path.Combine(imagesPath, $"{imageName}.png");
             if (!File.Exists(imagePath))
             {
-                // Calea pentru imaginea implicită
                 imagePath = Path.Combine(imagesPath, "no_image.png");
             }
 
@@ -45,14 +44,11 @@ namespace DictionaryApp
 
             try
             {
-                // Asigură-te că imaginea precedentă nu este blocată și este eliberată
                 if (File.Exists(destinationPath))
                 {
-                    // Încercăm să ștergem imaginea existentă
                     File.Delete(destinationPath);
                 }
 
-                // Folosind FileStream pentru a scrie noua imagine
                 using (var sourceStream = File.OpenRead(sourceFilePath))
                 using (var destinationStream = File.Create(destinationPath))
                 {

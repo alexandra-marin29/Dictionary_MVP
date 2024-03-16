@@ -69,7 +69,7 @@ namespace DictionaryApp
 
             if (openFileDialog.ShowDialog() == true)
             {
-                selectedImagePath = openFileDialog.FileName; // Stochează calea imaginii selectate
+                selectedImagePath = openFileDialog.FileName; 
                 selectedImage.Source = new BitmapImage(new Uri(selectedImagePath));
             }
         }

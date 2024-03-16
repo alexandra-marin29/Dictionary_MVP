@@ -28,13 +28,16 @@ namespace DictionaryApp
         private List<WordEntry> gameWords; 
         private int currentWordIndex;
         private int correctAnswers;
+        private DataService dataService;
+
 
         public EntertainmentControl()
         {
             InitializeComponent();
+            dataService = new DataService("D:\\FACULTATE_AN_2\\MVP\\Dictionary_MVP\\DictionaryApp\\DictionaryApp\\Resources\\cuvinte.json");
             InitializeGame();
-
         }
+
         private void SelectGameWords()
         {
             var random = new Random();
@@ -42,8 +45,7 @@ namespace DictionaryApp
         }
         private void InitializeGame()
         {
-            string json = File.ReadAllText("D:\\FACULTATE_AN_2\\MVP\\Dictionary_MVP\\DictionaryApp\\DictionaryApp\\Resources\\cuvinte.json");
-            allWords = JsonConvert.DeserializeObject<List<WordEntry>>(json);
+            allWords = dataService.LoadWords();
 
             SelectGameWords();
             currentWordIndex = 0;
@@ -136,7 +138,9 @@ namespace DictionaryApp
                 correctAnswers++;
                 feedbackText.Text = "Corect!";
                 feedbackText.Foreground = new SolidColorBrush(Colors.Green); 
-                correctWordText.Text = ""; 
+                correctWordText.Text = "";
+                correctAnswersText.Text = $"Răspunsuri corecte: {correctAnswers}";
+
             }
             else
             {
