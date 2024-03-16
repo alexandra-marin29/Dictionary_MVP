@@ -11,11 +11,15 @@ namespace DictionaryApp
 {
     public partial class SearchControl : UserControl
     {
+        private DataService dataService;
+        private ImageService imageService;
         private List<WordEntry> _wordEntries;
 
         public SearchControl()
         {
             InitializeComponent();
+            dataService = new DataService("D:\\FACULTATE_AN_2\\MVP\\Dictionary_MVP\\DictionaryApp\\DictionaryApp\\Resources\\cuvinte.json");
+            imageService = new ImageService("D:\\FACULTATE_AN_2\\MVP\\Dictionary_MVP\\DictionaryApp\\DictionaryApp\\Resources\\Images");
             LoadJsonData();
             searchTextBox.TextChanged += SearchTextBox_TextChanged;
             categoryComboBox.SelectionChanged += CategoryComboBox_SelectionChanged;
@@ -24,17 +28,7 @@ namespace DictionaryApp
 
         private void LoadJsonData()
         {
-            string filePath = "D:\\FACULTATE_AN_2\\MVP\\Dictionary_MVP\\DictionaryApp\\DictionaryApp\\Resources\\cuvinte.json";
-            if (File.Exists(filePath))
-            {
-                string json = File.ReadAllText(filePath);
-                _wordEntries = JsonConvert.DeserializeObject<List<WordEntry>>(json) ?? new List<WordEntry>();
-            }
-            else
-            {
-                _wordEntries = new List<WordEntry>();
-            }
-
+            _wordEntries = dataService.LoadWords();
             categoryComboBox.ItemsSource = _wordEntries.Select(w => w.Categorie).Distinct().ToList();
         }
 
@@ -82,22 +76,15 @@ namespace DictionaryApp
         {
             if (resultsListBox.SelectedItem is WordEntry selectedWord)
             {
-                // Setează textul searchTextBox la cuvântul selectat
+                // Afiseaza cuvantul in searchTextBox cand este selectat din lista
                 searchTextBox.Text = selectedWord.Cuvant;
 
                 selectedWordTextBox.Text = $"Cuvânt: {selectedWord.Cuvant}";
                 selectedWordCategoryTextBox.Text = $"Categorie: {selectedWord.Categorie}";
                 selectedWordDefinitionTextBox.Text = $"Definiție: {selectedWord.Definitie}";
 
-                var imagePath = $"D:\\FACULTATE_AN_2\\MVP\\Dictionary_MVP\\DictionaryApp\\DictionaryApp\\Resources\\Images\\{selectedWord.Cuvant}.png"; // Presupunând că ai imagini numite după cuvânt
-                if (File.Exists(imagePath))
-                {
-                    wordImage.Source = new BitmapImage(new Uri(imagePath));
-                }
-                else
-                {
-                    wordImage.Source = new BitmapImage(new Uri("D:\\FACULTATE_AN_2\\MVP\\Dictionary_MVP\\DictionaryApp\\DictionaryApp\\Resources\\Images\\no_image.png")); // Imaginea de rezervă
-                }
+                // Incarcare si afisare imagine asociata cuvantului, daca exista
+                wordImage.Source = imageService.LoadImage(selectedWord.Cuvant);
 
                 suggestionsPopup.IsOpen = false;
             }

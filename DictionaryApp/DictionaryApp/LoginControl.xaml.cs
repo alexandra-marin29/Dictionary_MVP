@@ -14,11 +14,15 @@ namespace DictionaryApp
         public delegate void AuthenticationSuccessHandler();
         public event AuthenticationSuccessHandler OnAuthenticationSuccess;
 
+        private UserService userService;
+
         public LoginControl()
         {
             InitializeComponent();
             usernameTextBox.KeyDown += HandleEnterKey;
             passwordBox.KeyDown += HandleEnterKey;
+            userService = new UserService("D:\\FACULTATE_AN_2\\MVP\\Dictionary_MVP\\DictionaryApp\\DictionaryApp\\Resources\\users.json");
+
         }
 
         private void Login_Click(object sender, RoutedEventArgs e)
@@ -36,14 +40,11 @@ namespace DictionaryApp
 
         private void AttemptLogin()
         {
-            string filePath = "D:\\FACULTATE_AN_2\\MVP\\Dictionary_MVP\\DictionaryApp\\DictionaryApp\\Resources\\users.json";
-            string json = File.ReadAllText(filePath);
-            var users = JsonConvert.DeserializeObject<List<User>>(json);
-
+         
             var username = usernameTextBox.Text;
             var password = passwordBox.Password;
 
-            var user = users?.FirstOrDefault(u => u.Username == username && u.Password == password);
+            var user = userService.AuthenticateUser(username, password);
 
             if (user != null)
             {
@@ -56,10 +57,6 @@ namespace DictionaryApp
             }
         }
 
-        public class User
-        {
-            public string Username { get; set; }
-            public string Password { get; set; }
-        }
+        
     }
 }

@@ -69,6 +69,8 @@
     <Compile Include="SearchControl.xaml.cs">
       <DependentUpon>SearchControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="User.cs" />
+    <Compile Include="UserService.cs" />
     <Compile Include="ValidationService.cs" />
     <Compile Include="WordService.cs" />
     <Page Include="AdminControl.xaml">
