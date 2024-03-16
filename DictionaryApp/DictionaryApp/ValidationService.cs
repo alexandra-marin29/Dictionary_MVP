@@ -21,7 +21,7 @@ namespace DictionaryApp
 
         public bool IsValidDefinition(string definition)
         {
-            return Regex.IsMatch(definition, "^[a-zA-ZăîâșțĂÎÂȘȚ0-9,;.!?-]+$");
+            return Regex.IsMatch(definition, "^[a-zA-ZăîâșțĂÎÂȘȚ0-9,;.!? -]+$");
         }
     }
 

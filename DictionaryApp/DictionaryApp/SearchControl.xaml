@@ -14,7 +14,7 @@
 
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="Auto" >
             <TextBlock Text="Selectează o categorie: " FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10"/>
-            <ComboBox x:Name="categoryComboBox" Width="200" Height="30" Margin="0,0,0,10"/>
+            <ComboBox x:Name="categoryComboBox" Width="200" Height="30" Margin="0,0,0,10" MaxDropDownHeight="150"/>
             <TextBox x:Name="searchTextBox" Width="200" Height="30" Margin="0,0,0,10"/>
             <Popup x:Name="suggestionsPopup" IsOpen="False" Placement="Bottom" PlacementTarget="{Binding ElementName=searchTextBox}" StaysOpen="False">
                 <ListBox x:Name="resultsListBox" Width="200" Height="150" SelectionChanged="ResultsListBox_SelectionChanged"/>

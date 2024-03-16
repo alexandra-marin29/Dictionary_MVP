@@ -57,11 +57,20 @@ namespace DictionaryApp
             string query = searchTextBox.Text.Trim();
             string selectedCategory = categoryComboBox.SelectedItem as string;
 
-            var filteredList = _wordEntries
-                .Where(entry =>
-                    (selectedCategory == "Toate" || entry.Categorie == selectedCategory) &&
-                    entry.Cuvant.StartsWith(query, StringComparison.InvariantCultureIgnoreCase))
-                .ToList();
+            IEnumerable<WordEntry> filteredList;
+
+            if (selectedCategory == "Toate" || selectedCategory == null)
+            {
+                filteredList = _wordEntries
+                    .Where(entry => entry.Cuvant.StartsWith(query, StringComparison.InvariantCultureIgnoreCase));
+            }
+            else
+            {
+                filteredList = _wordEntries
+                    .Where(entry =>
+                        entry.Categorie == selectedCategory &&
+                        entry.Cuvant.StartsWith(query, StringComparison.InvariantCultureIgnoreCase));
+            }
 
             if (!string.IsNullOrWhiteSpace(query))
             {
@@ -70,7 +79,7 @@ namespace DictionaryApp
 
                 int itemHeight = 30;
                 int maxItemsToShow = 5;
-                int listBoxHeight = Math.Min(filteredList.Count, maxItemsToShow) * itemHeight;
+                int listBoxHeight = Math.Min(filteredList.Count(), maxItemsToShow) * itemHeight;
                 resultsListBox.Height = listBoxHeight;
             }
             else
@@ -78,6 +87,7 @@ namespace DictionaryApp
                 suggestionsPopup.IsOpen = false;
             }
         }
+
 
 
         private void ResultsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

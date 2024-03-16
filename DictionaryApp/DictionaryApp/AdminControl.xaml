@@ -23,7 +23,8 @@
         <TextBox x:Name="descriptionTextBox" Grid.Row="1" Margin="100,0,0,5" Height="30"/>
 
         <TextBlock Text="Categorie:" Grid.Row="2" VerticalAlignment="Center"/>
-        <ComboBox x:Name="categoryComboBox" Grid.Row="2" Margin="100,0,0,5" IsEditable="True" SelectionChanged="categoryComboBox_SelectionChanged" Height="30" />
+        <ComboBox x:Name="categoryComboBox" Grid.Row="2" Margin="100,0,0,5" IsEditable="True" 
+          SelectionChanged="categoryComboBox_SelectionChanged" Height="30" MaxDropDownHeight="200"/>
 
         <Button Content="Alege imagine" Grid.Row="3" Margin="0,18,0,249" Width="120" HorizontalAlignment="Left" Click="ChooseImageButton_Click" Background="DarkGray" Grid.RowSpan="3"/>
         <Image x:Name="selectedImage" Grid.Row="3" Margin="100,0,0,5" Width="100" Height="100"/>
