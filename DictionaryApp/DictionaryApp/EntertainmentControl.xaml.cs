@@ -171,13 +171,6 @@ namespace DictionaryApp
                 textBox.Foreground = System.Windows.Media.Brushes.Gray;
             }
         }
-        public class WordEntry
-        {
-            public string Cuvant { get; set; }
-            public string Definitie { get; set; }
-            public string ImageFileName { get; set; }
-        }
-
 
     }
 }

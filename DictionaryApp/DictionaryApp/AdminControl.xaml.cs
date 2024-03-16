@@ -13,30 +13,35 @@ namespace DictionaryApp
 {
     public partial class AdminControl : UserControl
     {
-        private string filePath = "D:\\FACULTATE_AN_2\\MVP\\Dictionary_MVP\\DictionaryApp\\DictionaryApp\\Resources\\cuvinte.json";
-        private string imagesPath = "D:\\FACULTATE_AN_2\\MVP\\Dictionary_MVP\\DictionaryApp\\DictionaryApp\\Resources\\Images";
+        private string selectedImagePath;
+        private DataService dataService;
+        private ImageService imageService;
+        private ValidationService validationService;
         private List<WordEntry> words;
 
         public AdminControl()
         {
             InitializeComponent();
+
+            dataService = new DataService("D:\\FACULTATE_AN_2\\MVP\\Dictionary_MVP\\DictionaryApp\\DictionaryApp\\Resources\\cuvinte.json");
+            imageService = new ImageService("D:\\FACULTATE_AN_2\\MVP\\Dictionary_MVP\\DictionaryApp\\DictionaryApp\\Resources\\Images");
+            validationService = new ValidationService();
+
             LoadWords();
             wordTextBox.TextChanged += wordTextBox_TextChanged;
 
         }
-        private bool IsValidWord(string word)
+
+
+        private void LoadWords()
         {
-            return Regex.IsMatch(word, "^[a-zA-ZăîâșțĂÎÂȘȚ-]+$");
+            words = dataService.LoadWords();
+            LoadCategories();
         }
 
-        private bool IsValidCategory(string category)
+        private void LoadCategories()
         {
-            return Regex.IsMatch(category, "^[a-zA-ZăîâșțĂÎÂȘȚ ]+$");
-        }
-
-        private bool IsValidDefinition(string definition)
-        {
-            return Regex.IsMatch(definition, "^[a-zA-ZăîâșțĂÎÂȘȚ0-9,;.!?-]+$");
+            categoryComboBox.ItemsSource = words.Select(w => w.Categorie).Distinct().ToList();
         }
 
         private void wordTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -48,17 +53,12 @@ namespace DictionaryApp
                 if (existingEntry != null)
                 {
                     descriptionTextBox.Text = existingEntry.Definitie;
-                    categoryComboBox.SelectedItem = categoryComboBox.Items.Cast<string>().FirstOrDefault(c => c.Equals(existingEntry.Categorie, StringComparison.OrdinalIgnoreCase));
-
-                    string imagePath = Path.Combine(imagesPath, existingEntry.Cuvant + ".png");
-                    if (!File.Exists(imagePath))
-                    {
-                        imagePath = Path.Combine(imagesPath, "no_image.png");
-                    }
-                    LoadImage(imagePath);
+                    categoryComboBox.SelectedItem = existingEntry.Categorie;
+                    selectedImage.Source = imageService.LoadImage(existingEntry.Cuvant);
                 }
             }
         }
+
         private void ChooseImageButton_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
@@ -69,61 +69,23 @@ namespace DictionaryApp
 
             if (openFileDialog.ShowDialog() == true)
             {
-                BitmapImage bitmap = new BitmapImage(new Uri(openFileDialog.FileName));
-                selectedImage.Source = bitmap;
+                selectedImagePath = openFileDialog.FileName; // Stochează calea imaginii selectate
+                selectedImage.Source = new BitmapImage(new Uri(selectedImagePath));
             }
-        }
-        private void LoadImage(string imagePath)
-        {
-            BitmapImage bitmap = new BitmapImage();
-            bitmap.BeginInit();
-            bitmap.UriSource = new Uri(imagePath, UriKind.Absolute);
-            bitmap.CacheOption = BitmapCacheOption.OnLoad;
-            bitmap.EndInit();
-            bitmap.Freeze();
-            selectedImage.Source = bitmap;
-        }
-
-
-        private void LoadWords()
-        {
-            if (File.Exists(filePath))
-            {
-                string json = File.ReadAllText(filePath);
-                words = JsonConvert.DeserializeObject<List<WordEntry>>(json) ?? new List<WordEntry>();
-                LoadCategories(); 
-            }
-            else
-            {
-                words = new List<WordEntry>();
-            }
-        }
-
-        private void LoadCategories()
-        {
-            var categories = words.Select(w => w.Categorie).Distinct().ToList();
-
-            categoryComboBox.ItemsSource = categories;
-        }
-        private void SaveWords()
-        {
-            string json = JsonConvert.SerializeObject(words, Formatting.Indented);
-            File.WriteAllText(filePath, json);
         }
         private void categoryComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var selectedCategory = categoryComboBox.Text;
             if (!string.IsNullOrWhiteSpace(selectedCategory) && !words.Any(w => w.Categorie == selectedCategory))
             {
-                
+
                 var newCategory = selectedCategory;
                 words.Add(new WordEntry { Categorie = newCategory });
-                SaveWords(); 
+                dataService.SaveWords(words);
 
                 LoadCategories();
             }
         }
-
 
         private void AddModifyWordButton_Click(object sender, RoutedEventArgs e)
         {
@@ -131,137 +93,76 @@ namespace DictionaryApp
             var definition = descriptionTextBox.Text.Trim();
             var category = categoryComboBox.Text.Trim();
 
-            if (string.IsNullOrEmpty(word) || string.IsNullOrEmpty(definition) || string.IsNullOrEmpty(category))
+            if (!validationService.IsValidWord(word) || !validationService.IsValidCategory(category) || !validationService.IsValidDefinition(definition))
             {
-                MessageBox.Show("Trebuie să introduceți un cuvânt, o definiție și să selectați o categorie pentru a salva.");
-                return;
-            }
-            if (!IsValidWord(word))
-            {
-                MessageBox.Show("Cuvântul introdus este invalid.");
-                return;
-            }
-
-            if (!IsValidCategory(category))
-            {
-                MessageBox.Show("Categoria introdusă este invalidă.");
-                return;
-            }
-
-            if (!IsValidDefinition(definition))
-            {
-                MessageBox.Show("Definiția introdusă este invalidă.");
+                MessageBox.Show("Unul sau mai multe câmpuri sunt invalide.");
                 return;
             }
 
             var existingEntry = words.FirstOrDefault(w => w.Cuvant.Equals(word, StringComparison.OrdinalIgnoreCase));
-            if (existingEntry != null)
+            bool isNewWord = existingEntry == null;
+
+            if (!isNewWord)
             {
                 existingEntry.Definitie = definition;
                 existingEntry.Categorie = category;
 
                 MessageBox.Show("Informațiile cuvântului au fost actualizate.");
-
-                var imagePath = SaveImage(selectedImage.Source as BitmapImage, word);
-                if (imagePath != null)
-                {
-                    MessageBox.Show("Imaginea a fost actualizată.");
-                }
             }
             else
             {
-                var imagePath = SaveImage(selectedImage.Source as BitmapImage, word);
-                if (imagePath != null)
-                {
-                    MessageBox.Show("Imaginea a fost salvată.");
-                }
-
-                var newWord = new WordEntry
-                {
-                    Cuvant = word,
-                    Definitie = definition,
-                    Categorie = category
-                };
-
-                words.Add(newWord);
+                words.Add(new WordEntry { Cuvant = word, Definitie = definition, Categorie = category });
                 MessageBox.Show("Cuvântul a fost adăugat cu succes.");
             }
 
-            SaveWords(); 
-        }
-
-
-        private string SaveImage(BitmapImage bitmapImage, string word)
-        {
-            if (bitmapImage != null && bitmapImage.UriSource != null)
+            if (!string.IsNullOrEmpty(selectedImagePath))
             {
-                var fileName = word + ".png";
-                var destinationPath = Path.Combine(imagesPath, fileName);
-
-                try
+                if (!isNewWord && existingEntry != null && !string.IsNullOrEmpty(selectedImagePath))
                 {
-                    File.Copy(bitmapImage.UriSource.LocalPath, destinationPath, true);
-                    return destinationPath; 
+                    imageService.DeleteImage(existingEntry.Cuvant);
                 }
-                catch
+
+                var saveResult = imageService.SaveImage(selectedImagePath, word);
+                imageService.SaveImage(selectedImagePath, word); 
+                if (saveResult != null)
                 {
-                    return null; 
+                    MessageBox.Show("Imaginea a fost salvată cu succes");
+                }
+                else
+                {
+                    MessageBox.Show("Nu s-a putut salva imaginea.");
                 }
             }
-            return null; 
+
+
+            dataService.SaveWords(words);
+            LoadCategories(); 
         }
 
 
         private void DeleteWordButton_Click(object sender, RoutedEventArgs e)
         {
-            try
+            var wordToDelete = wordTextBox.Text.Trim();
+
+            if (string.IsNullOrEmpty(wordToDelete))
             {
-                var wordToDelete = wordTextBox.Text.Trim();
-
-                if (string.IsNullOrEmpty(wordToDelete))
-                {
-                    MessageBox.Show("Vă rugăm să introduceți un cuvânt pentru a fi șters.");
-                    return;
-                }
-
-                var wordEntry = words.FirstOrDefault(w => w.Cuvant.Equals(wordToDelete, StringComparison.OrdinalIgnoreCase));
-                if (wordEntry != null)
-                {
-                    words.Remove(wordEntry);
-                    SaveWords();
-
-                    var imagePath = Path.Combine(imagesPath, wordToDelete + ".png");
-
-                    if (File.Exists(imagePath))
-                    {
-                        File.Delete(imagePath);
-                        MessageBox.Show($"Cuvântul și imaginea asociată pentru '{wordToDelete}' au fost șterse.");
-                    }
-                    else
-                    {
-                        MessageBox.Show($"Cuvântul '{wordToDelete}' a fost șters, dar nu s-a găsit nicio imagine asociată pentru a fi eliminată.");
-                    }
-                }
-                else
-                {
-                    MessageBox.Show($"Cuvântul '{wordToDelete}' nu a fost găsit.");
-                }
+                MessageBox.Show("Vă rugăm să introduceți un cuvânt pentru a fi șters.");
+                return;
             }
-            catch (Exception ex)
+
+            var wordEntry = words.FirstOrDefault(w => w.Cuvant.Equals(wordToDelete, StringComparison.OrdinalIgnoreCase));
+            if (wordEntry != null)
             {
-                MessageBox.Show($"A apărut o eroare: {ex.Message}");
+                words.Remove(wordEntry);
+                dataService.SaveWords(words);
+                imageService.DeleteImage(wordToDelete); 
+                MessageBox.Show($"Cuvântul și imaginea asociată pentru '{wordToDelete}' au fost șterse.");
+            }
+            else
+            {
+                MessageBox.Show($"Cuvântul '{wordToDelete}' nu a fost găsit.");
             }
         }
 
-
-
-        public class WordEntry
-        {
-            public string Cuvant { get; set; }
-            public string Categorie { get; set; }
-            public string Definitie { get; set; }
-        }
-
-        
     }
 }

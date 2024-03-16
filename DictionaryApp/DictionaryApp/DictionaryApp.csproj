@@ -58,15 +58,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DataService.cs" />
     <Compile Include="EntertainmentControl.xaml.cs">
       <DependentUpon>EntertainmentControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ImageService.cs" />
     <Compile Include="LoginControl.xaml.cs">
       <DependentUpon>LoginControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="SearchControl.xaml.cs">
       <DependentUpon>SearchControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ValidationService.cs" />
+    <Compile Include="WordService.cs" />
     <Page Include="AdminControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

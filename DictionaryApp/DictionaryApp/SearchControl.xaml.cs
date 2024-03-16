@@ -9,18 +9,6 @@ using System.Windows.Media.Imaging;
 
 namespace DictionaryApp
 {
-    public class WordEntry
-    {
-        public string cuvant { get; set; }
-        public string categorie { get; set; }
-        public string definitie { get; set; }
-
-        public override string ToString()
-        {
-            return cuvant;
-        }
-    }
-
     public partial class SearchControl : UserControl
     {
         private List<WordEntry> _wordEntries;
@@ -47,7 +35,7 @@ namespace DictionaryApp
                 _wordEntries = new List<WordEntry>();
             }
 
-            categoryComboBox.ItemsSource = _wordEntries.Select(w => w.categorie).Distinct().ToList();
+            categoryComboBox.ItemsSource = _wordEntries.Select(w => w.Categorie).Distinct().ToList();
         }
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -68,8 +56,8 @@ namespace DictionaryApp
             string selectedCategory = categoryComboBox.SelectedItem as string;
 
             var filteredList = _wordEntries
-                .Where(entry => (string.IsNullOrWhiteSpace(selectedCategory) || entry.categorie == selectedCategory) &&
-                                entry.cuvant.StartsWith(query, System.StringComparison.InvariantCultureIgnoreCase))
+                .Where(entry => (string.IsNullOrWhiteSpace(selectedCategory) || entry.Categorie == selectedCategory) &&
+                                entry.Cuvant.StartsWith(query, System.StringComparison.InvariantCultureIgnoreCase))
                 .ToList();
 
             if (!string.IsNullOrWhiteSpace(query) && filteredList.Any())
@@ -94,11 +82,14 @@ namespace DictionaryApp
         {
             if (resultsListBox.SelectedItem is WordEntry selectedWord)
             {
-                selectedWordTextBox.Text = $"Cuvânt: {selectedWord.cuvant}";
-                selectedWordCategoryTextBox.Text = $"Categorie: {selectedWord.categorie}";
-                selectedWordDefinitionTextBox.Text = $"Definiție: {selectedWord.definitie}";
+                // Setează textul searchTextBox la cuvântul selectat
+                searchTextBox.Text = selectedWord.Cuvant;
 
-                var imagePath = $"D:\\FACULTATE_AN_2\\MVP\\Dictionary_MVP\\DictionaryApp\\DictionaryApp\\Resources\\Images\\{selectedWord.cuvant}.png"; // Presupunând că ai imagini numite după cuvânt
+                selectedWordTextBox.Text = $"Cuvânt: {selectedWord.Cuvant}";
+                selectedWordCategoryTextBox.Text = $"Categorie: {selectedWord.Categorie}";
+                selectedWordDefinitionTextBox.Text = $"Definiție: {selectedWord.Definitie}";
+
+                var imagePath = $"D:\\FACULTATE_AN_2\\MVP\\Dictionary_MVP\\DictionaryApp\\DictionaryApp\\Resources\\Images\\{selectedWord.Cuvant}.png"; // Presupunând că ai imagini numite după cuvânt
                 if (File.Exists(imagePath))
                 {
                     wordImage.Source = new BitmapImage(new Uri(imagePath));
@@ -111,6 +102,7 @@ namespace DictionaryApp
                 suggestionsPopup.IsOpen = false;
             }
         }
+
 
 
 
