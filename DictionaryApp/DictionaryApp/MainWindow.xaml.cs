@@ -57,7 +57,5 @@ namespace DictionaryApp
             titleLabel.Visibility = Visibility.Collapsed;
         }
 
-       
-        
     }
 }

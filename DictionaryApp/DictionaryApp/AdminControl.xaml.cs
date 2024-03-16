@@ -69,7 +69,7 @@ namespace DictionaryApp
 
             if (openFileDialog.ShowDialog() == true)
             {
-                selectedImagePath = openFileDialog.FileName; 
+                selectedImagePath = openFileDialog.FileName;
                 selectedImage.Source = new BitmapImage(new Uri(selectedImagePath));
             }
         }
@@ -123,8 +123,8 @@ namespace DictionaryApp
                 }
 
                 var saveResult = imageService.SaveImage(selectedImagePath, word);
-                imageService.SaveImage(selectedImagePath, word); 
-                if (saveResult != null)
+                imageService.SaveImage(selectedImagePath, word);
+                if (saveResult != false)
                 {
                     MessageBox.Show("Imaginea a fost salvată cu succes");
                 }
@@ -136,7 +136,7 @@ namespace DictionaryApp
 
 
             dataService.SaveWords(words);
-            LoadCategories(); 
+            LoadCategories();
         }
 
 
@@ -155,7 +155,7 @@ namespace DictionaryApp
             {
                 words.Remove(wordEntry);
                 dataService.SaveWords(words);
-                imageService.DeleteImage(wordToDelete); 
+                imageService.DeleteImage(wordToDelete);
                 MessageBox.Show($"Cuvântul și imaginea asociată pentru '{wordToDelete}' au fost șterse.");
             }
             else

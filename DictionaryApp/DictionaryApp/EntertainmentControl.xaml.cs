@@ -102,7 +102,7 @@ namespace DictionaryApp
         }
         private void ResetInputAndFeedback()
         {
-            userInput.Foreground = System.Windows.Media.Brushes.Gray;
+            userInput.Foreground = Brushes.Black;
             userInput.Text = "";
             feedbackText.Text = "";
             correctWordText.Text = "";
@@ -162,7 +162,7 @@ namespace DictionaryApp
             if (textBox != null && textBox.Text == "Scrie răspunsul aici...")
             {
                 textBox.Text = "";
-                textBox.Foreground = System.Windows.Media.Brushes.Black; 
+                textBox.Foreground = Brushes.Black; 
             }
          }
 
@@ -172,7 +172,7 @@ namespace DictionaryApp
             if (textBox != null && string.IsNullOrWhiteSpace(textBox.Text))
             {
                 textBox.Text = "Scrie răspunsul aici...";
-                textBox.Foreground = System.Windows.Media.Brushes.Gray;
+                textBox.Foreground = Brushes.Gray;
             }
         }
 

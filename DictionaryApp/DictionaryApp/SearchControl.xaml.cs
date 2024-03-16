@@ -29,7 +29,15 @@ namespace DictionaryApp
         private void LoadJsonData()
         {
             _wordEntries = dataService.LoadWords();
-            categoryComboBox.ItemsSource = _wordEntries.Select(w => w.Categorie).Distinct().ToList();
+            var categories = _wordEntries
+                .Select(w => w.Categorie)
+                .Distinct()
+                .OrderBy(c => c)
+                .ToList();
+
+            categories.Insert(0, "Toate");
+
+            categoryComboBox.ItemsSource = categories;
         }
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -46,20 +54,20 @@ namespace DictionaryApp
         {
             if (_wordEntries == null) return;
 
-            string query = searchTextBox.Text;
+            string query = searchTextBox.Text.Trim();
             string selectedCategory = categoryComboBox.SelectedItem as string;
 
             var filteredList = _wordEntries
-                .Where(entry => (string.IsNullOrWhiteSpace(selectedCategory) || entry.Categorie == selectedCategory) &&
-                                entry.Cuvant.StartsWith(query, System.StringComparison.InvariantCultureIgnoreCase))
+                .Where(entry =>
+                    (selectedCategory == "Toate" || entry.Categorie == selectedCategory) &&
+                    entry.Cuvant.StartsWith(query, StringComparison.InvariantCultureIgnoreCase))
                 .ToList();
 
-            if (!string.IsNullOrWhiteSpace(query) && filteredList.Any())
+            if (!string.IsNullOrWhiteSpace(query))
             {
                 resultsListBox.ItemsSource = filteredList;
                 suggestionsPopup.IsOpen = true;
 
-               
                 int itemHeight = 30;
                 int maxItemsToShow = 5;
                 int listBoxHeight = Math.Min(filteredList.Count, maxItemsToShow) * itemHeight;
@@ -76,14 +84,12 @@ namespace DictionaryApp
         {
             if (resultsListBox.SelectedItem is WordEntry selectedWord)
             {
-                // Afiseaza cuvantul in searchTextBox cand este selectat din lista
                 searchTextBox.Text = selectedWord.Cuvant;
 
                 selectedWordTextBox.Text = $"Cuvânt: {selectedWord.Cuvant}";
                 selectedWordCategoryTextBox.Text = $"Categorie: {selectedWord.Categorie}";
                 selectedWordDefinitionTextBox.Text = $"Definiție: {selectedWord.Definitie}";
 
-                // Incarcare si afisare imagine asociata cuvantului, daca exista
                 wordImage.Source = imageService.LoadImage(selectedWord.Cuvant);
 
                 suggestionsPopup.IsOpen = false;

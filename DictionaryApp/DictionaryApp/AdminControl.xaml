@@ -17,11 +17,9 @@
         </Grid.RowDefinitions>
 
         <TextBlock Text="Cuvânt:" VerticalAlignment="Center"/>
-        <!-- Modificat Height la 30 -->
         <TextBox x:Name="wordTextBox" Grid.Row="0" Margin="100,0,0,5" Height="30" TextChanged="wordTextBox_TextChanged" />
 
         <TextBlock Text="Descriere:" Grid.Row="1" VerticalAlignment="Center"/>
-        <!-- Modificat Height la 30 -->
         <TextBox x:Name="descriptionTextBox" Grid.Row="1" Margin="100,0,0,5" Height="30"/>
 
         <TextBlock Text="Categorie:" Grid.Row="2" VerticalAlignment="Center"/>
