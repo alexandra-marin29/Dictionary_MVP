@@ -53,7 +53,7 @@ namespace DictionaryApp
             }
             else
             {
-                MessageBox.Show("Invalid username or password.");
+                MessageBox.Show("Nume de utilizator sau parolă invalidă");
             }
         }
 

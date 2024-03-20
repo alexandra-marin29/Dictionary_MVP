@@ -146,7 +146,7 @@ namespace DictionaryApp
 
             if (string.IsNullOrEmpty(wordToDelete))
             {
-                MessageBox.Show("Vă rugăm să introduceți un cuvânt pentru a fi șters.");
+                MessageBox.Show("Introduceți un cuvânt pentru a fi șters.");
                 return;
             }
 
